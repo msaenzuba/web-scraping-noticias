@@ -14,23 +14,20 @@ from webdriver_manager.firefox import GeckoDriverManager
 import time
 
 # COMPLETAR FECHA
-fecha_inicial = datetime.datetime.strptime("01/01/2023", "%d/%m/%Y")
+fecha_inicial = datetime.datetime.strptime("01/01/2023", "%d/%m/%Y") #Colocar fecha más antigua del período a buscar información.
 fecha_final = fecha_inicial
-términos_búsqueda = "seguridad"
+términos_búsqueda = "insertar términos de búsqueda"
 output_file = f"resultados_lanacion_{términos_búsqueda}_{fecha_inicial}.csv"
 
-#me falta: ultima pagina de resultados de 4/1/2022 -desde ventana 2 18/02/2022 - 21/12 en seguridad
-#falta 30/06/22 en inseguridad
-#Búsquedas realizadas: seguridad 2022, inseguridad 2022
 
-service = Service(r'C:\Users\marti\Documents\Facu\Beca Maestría\Scraping\Selenium\geckodriver-v0.35.0-win64\geckodriver.exe')
+service = Service(r'__________') #Ruta al geckodriver.exe
 options = webdriver.FirefoxOptions()
 options.add_argument("-private")
 options.add_argument('--ignore-certificate-errors')
 #options.add_argument("--headless")  # Modo sin interfaz gráfica
 options.set_preference("permissions.default.image", 2)  # Desactiva la carga de imágenes
 options.add_argument("--disable-gpu")  # Para mejorar la compatibilidad en modo headless
-options.add_argument('--disk-cache-size=4096')  
+options.add_argument('--disk-cache-size=4096')  # Establecer tamaño de caché
 options.add_argument('--enable-application-cache')  # Activa el uso de caché
 #options.page_load_strategy = 'eager' 
 
@@ -65,7 +62,7 @@ def reiniciar_navegador(ultima_fecha_inicio_str, ultima_fecha_fin_str): # COMPLE
     driver.quit()
     espera_aleatoria(1, 2)
     driver = webdriver.Firefox(options=options)
-    driver.get('https://www.lanacion.com.ar/buscador/?query=seguridad')
+    driver.get(f'https://www.lanacion.com.ar/buscador/?query={términos_búsqueda}')
     espera_aleatoria(1, 2)
 
     # Rellenar nuevamente las fechas después del reinicio
