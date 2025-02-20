@@ -17,7 +17,12 @@ chrome_options.add_argument("--disable-gpu")  # Para mejorar la compatibilidad e
 chrome_options.add_argument("--window-size=1920x1080")  # Para asegurar que las páginas se vean correctamente
 
 # Crear el servicio de Chrome
-service = Service('C:\\Users\\marti\\Documents\\Facu\\Beca Maestría\\Scraping\\Selenium\\chromedriver.exe')
+service = Service('______') ruta al chromedriver.exe
+
+fecha_inicio = "AAAA-MM-DD"
+fecha_final = "AAAA-MM-DD"
+términos_búsqueda = "términos a buscar"
+
 
 # Inicializar el navegador con el servicio y las opciones
 driver = webdriver.Chrome(service=service, options=chrome_options)
@@ -179,14 +184,14 @@ def siguiente_pagina():
 # Abrir Google y realizar una búsqueda
 driver.get("https://www.google.com")
 search_box = driver.find_element(By.NAME, "q")
-search_box.send_keys("muerte site:pagina12.com.ar after:2021-12-31 before:2024-01-01")
+search_box.send_keys(f"{términos_búsqueda} site:pagina12.com.ar after:{fecha_inicio} before:{fecha_final}")
 search_box.send_keys(Keys.RETURN)
 
 # Esperar un poco para que se carguen los resultados
 time.sleep(2)
 
 # Abrir un archivo CSV para guardar los resultados
-with open('Página12Muerte2022.csv', mode='w', newline='', encoding='utf-8') as file:
+with open(f'Página12{términosbúsqueda}_{fecha_inicio}_{fecha_final}.csv', mode='w', newline='', encoding='utf-8') as file:
     writer = csv.writer(file)
     writer.writerow(['Título', 'Epígrafe', 'Subtítulo', 'Autor', 'Link', 'Sección', 'Fecha'])
 
